@@ -1,0 +1,55 @@
+---
+title: "Three Week Analysis"
+author: "T. Poole"
+date: '2022-07-30'
+output: 
+  html_document:
+          code_fold: hide
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+```{r,echo=FALSE,include=FALSE}
+library(tidyverse)
+library(forcats)
+
+ ## Read in Overtime data ##
+
+        overtime.df <- read_csv(file = "Three_Weeks_OT.csv")
+
+        overtime.df <- na.omit(overtime.df)
+
+ ## Read in run data 7/11/2022 thru 7/30/2022 ##
+
+        Threeweekcalls.df <- read_csv(file = "Threeweeks.csv")
+        
+ ## Read in mutual aid responses for same time period ##
+        
+        Threeweekma.df <- read_csv(file = "THREEWEEKSMA.csv")
+
+```
+## Average calls per day for the period 7/11/2022 thru 7/30/2022. ##
+
+#### The data frame below details all the calls for the period specified. These calls were queried 0800 hrs 07/31/2022 from the South Burlington Fire Department records management system using "FHpivotsummery" query.
+
+#### If we devide the 20 days into `r nrow(Threeweekcalls.df)`calls returns `r nrow(Threeweekcalls.df)/20` calls per day average. The complete call listing is below.
+
+```{r}
+knitr::kable(Threeweekcalls.df,
+ caption = "SBFD Calls, 7/11/2022 thru 7/30/2022")
+```
+
+
+## Overtime analysis 07/11/2022 thru 07/30/2022 ##
+
+The table below outlines overtime shifts for the period *(one member working 24hrs = 1 shift)*. The average overtime pershift is `r mean(overtime.df$overtime_shifts)` shifts. The total overtime hours for the period is `r sum(overtime.df$overtime_shifts)*24` hours. The
+total shift overtime percentage of the period is `r (sum(overtime.df$overtime_shifts)/sum(overtime.df$full_shift))*100`%.
+
+```{r}
+knitr::kable(overtime.df,
+ caption = "SBFD Overtime, 7/11/2022 thru 7/31/2022")
+```
+## Mutual Aid per shift for 7/11/2022 thru 7/30/2022 ##
+
+### this is a test
